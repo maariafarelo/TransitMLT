@@ -339,3 +339,25 @@ svg {
 .segona__title {
   color:var(--nav-color)
 }
+
+.segona__subtitle span,
+.segona__title {
+  color:var(--first-color)
+}
+
+.segona__title{
+  font-size: var(--biggest-font-size);
+  font-weight: var(--font-semi-bold);
+}
+
+
+.cuadrado {
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;        
+  height: 500px;     
+  background: rgba(149, 149, 149, 0.495);   
+  display: flex;
+  justify-content: center; 
+  align-items: center;  
+}
