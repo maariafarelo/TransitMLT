@@ -1,0 +1,341 @@
+/*=============== GOOGLE FONTS ===============*/
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+
+/*=============== VARIABLES CSS ===============*/
+:root {
+  --header-height: 3.5rem;
+
+
+  --hue:#0946e8;
+  --first-color: hsl(var(--hue), 100%, 100%);
+  --first-color-alt: hsl(var(--hue), %, 35%);
+  --title-color: hsl(210, 93%, 16%);
+  --nav-color:hsl(240, 50%, 99%);
+  --text-color: hsl(249, 100%, 19%);
+  --body-color: hsl(251, 81%, 48%);
+  --container-color: hsl(240, 50%, 99%);
+  
+
+  /*========== Font and typography ==========*/
+  /*.5rem = 8px | 1rem = 16px ...*/
+  --body-font: "Poppins", sans-serif;
+  --biggest-font-size: 3.5rem;
+  --bigger-font-size: 1.25rem;
+  --h1-font-size: 1.5rem;
+  --h2-font-size: 1.25rem;
+  --h3-font-size: 1rem;
+  --normal-font-size: .938rem;
+  --small-font-size: .813rem;
+  --smaller-font-size: .75rem;
+
+  /*========== Font weight ==========*/
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semi-bold: 600;
+
+  /*========== z index ==========*/
+  --z-tooltip: 10;
+  --z-fixed: 100;
+}
+
+/*========== Responsive typography ==========*/
+@media screen and (min-width: 1152px) {
+  :root {
+    --biggest-font-size: 4rem;
+    --bigger-font-size: 2rem;
+    --h1-font-size: 2.25rem;
+    --h2-font-size: 1.5rem;
+    --h3-font-size: 1.25rem;
+    --normal-font-size: 1rem;
+    --small-font-size: .875rem;
+    --smaller-font-size: .813rem;
+  }
+}
+
+/*=============== BASE ===============*/
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+input,
+textarea,
+button,
+body {
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+}
+
+body {
+  background-color: var(--body-color);
+  color: var(--text-color);
+}
+
+input,
+textarea,
+button {
+  outline: none;
+  border: none;
+}
+
+h1, h2, h3, h4 {
+  color: var(--title-color);
+  font-weight: var(--font-medium);
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/*=============== REUSABLE CSS CLASSES ===============*/
+.container {
+  max-width: 1120px;
+  margin-inline: 1.5rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.section {
+  padding-block: 5rem 2rem;
+}
+
+.section__title, 
+.section__subtitle {
+  text-align: center;
+  color: var(--title-color);
+  font-weight: var(--font-semi-bold);
+}
+
+.section__title {
+  font-size: var(--h1-font-size);
+  margin-bottom: 1.5rem;
+}
+
+.section__subtitle {
+  font-size: var(--small-font-size);
+  margin-bottom: .25rem;
+}
+
+.section__subtitle span {
+  color: var(--first-color);
+}
+
+.main {
+  overflow: hidden; /* For animation ScrollReveal */
+}
+
+/*=============== HEADER & NAV ===============*/
+.header{
+  position: fixed;
+  width: 100%;
+  background-color: hsl(249, 100%, 19%);
+  top: 0;
+  left: 0;
+  z-index: var(--z-fixed)
+}
+
+.nav{
+  height: var(--header-height);
+  display: flex;
+  justify-content: space-between;
+  align-items: center ;
+
+}
+
+.nav__logo{
+  color: var(--nav-color);
+  font-weight: var(--font-medium);
+
+}
+
+.nav__logo span{
+  color:var(--first-color);
+}
+
+.nav__toggle,
+.nav__close{
+  display: flex;
+  font-size: 1.25rem;
+  color: var(--title-color);
+  cursor: pointer;
+}
+/* Navigation for mobile devices */
+@media screen and (max-width: 1023px){
+  .nav__menu{
+    position:fixed;
+    top: 0;
+    right: -100%;
+    background-color: hsla(0, 0%, 10%, .3);
+    width: 75%;
+    height: 100%;
+    padding: 4.5rem 0 0 3rem;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px); /*internet*/
+    transition: right .4s ;
+  }
+}
+
+.nav__list{
+  display: flex;
+  flex-direction: column;
+  row-gap: 3rem;
+}
+
+.nav__link{
+  color: var(--title-color);
+  font-weight: var(--font-medium);
+  transition: color .4s;
+}
+
+
+.nav__link:hoover{
+  color: var(--first-color);
+}
+
+.nav__close{
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+}
+/* Show menu */
+.show-menu{
+  right: 0;
+}
+
+
+/*=============== HOME ===============*/
+.home{
+  background-color: var(--container-color);
+}
+.home__container{
+  padding-top: 2rem;
+  row-gap: 2.5rem;
+}
+
+.home__content{
+  display: grid;
+  row-gap: 2rem;
+}
+
+.home__data{
+  text-align: center;
+}
+
+.home__subtitle,
+.home__education{
+  font-size: var(--bigger-font-size);
+}
+
+.home__subtitle span,
+.home__title {
+  color:var(--first-color)
+}
+
+.home__title{
+  font-size: var(--biggest-font-size);
+  font-weight: var(--font-semi-bold);
+}
+
+.home__description{
+  margin-block: 1rem 1.5rem;
+}
+
+.home__social{
+  display: flex;
+  justify-content:center ;
+  column-gap: 1.25rem;
+}
+
+.home__social-link{
+  display: flex;
+  background-color: var(--first-color-alt);
+  padding: .5rem;
+  color: var(--title-color);
+  font-size: 1.5rem;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  transition: transform .3s;
+}
+
+.home__social-link:hoover{
+  transform: translateY(-.25rem);
+}
+
+.home__image{
+  justify-self: center ;
+}
+
+.home__blob{
+  width:320px;
+  fill: var(--first-color);
+  filter: drop-shadow(0 12px 12px hsla(var(--hue),100%, 40%, .2))
+}
+
+.nohome__altres{
+    font-size: 1.5rem;
+    font-weight: var(--font-semi-bold);
+    text-align: center;
+  }
+
+/*=============== BUTTON ===============*/
+.button{
+  display: inline-block;
+  background-color:var(--first-color) ;
+  padding: 1rem 1.75rem;
+  border-radius: .5rem;
+  color: var(--title-color);
+  font-weight: var(--font-medium);
+  transition: box-shadow .3s;
+}
+
+/*=============== SEGONA SECCIÓ ===============*/
+
+.segona{
+    background-color: hsl(249, 100%, 19%);
+    color:var(--nav-color)
+  }
+
+.segona__container{
+    padding-top: 2rem;
+    row-gap: 2.5rem;
+    color:var(--nav-color)
+  }
+  
+ .segona__content{
+    display: grid;
+    row-gap: 2rem;
+    color:var(--nav-color)
+  }
+  
+  .segona__data{
+    text-align: center;
+    color:var(--nav-color)
+  }
+  
+.segona__subtitle,
+.segona__education{
+  font-size: var(--bigger-font-size);
+  color:var(--nav-color)
+}
+
+.segona__subtitle span,
+.segona__title {
+  color:var(--nav-color)
+}
