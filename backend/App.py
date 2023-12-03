@@ -4,7 +4,7 @@ import json
 def obtener_datos_ruta(coordenadas_origen, coordenadas_destino):
     # Define la URL de la API y tu código de autorización
     url_api = "https://journey-service-int.api.sbb.ch/v3/trips/by-origin-destination"
-    codigo_autorizacion = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlQxU3QtZExUdnlXUmd4Ql82NzZ1OGtyWFMtSSJ9.eyJhdWQiOiJjMTFmYTZiMS1lZGFiLTQ1NTQtYTQzZC04YWI3MWIwMTYzMjUiLCJpc3MiOiJodHRwczovL2xvZ2luLm1pY3Jvc29mdG9ubGluZS5jb20vMmNkYTVkMTEtZjBhYy00NmIzLTk2N2QtYWYxYjJlMWJkMDFhL3YyLjAiLCJpYXQiOjE3MDE1NjM0MTEsIm5iZiI6MTcwMTU2MzQxMSwiZXhwIjoxNzAxNTY3MzExLCJhaW8iOiJBU1FBMi84VkFBQUE1VUJBeDNwR1dtNkVvVnZmelJPam5ldTRoSkdNaEJYNDN1TnVLUlh3NGFZPSIsImF6cCI6ImYxMzJhMjgwLTE1NzEtNDEzNy04NmQ3LTIwMTY0MTA5OGNlOCIsImF6cGFjciI6IjEiLCJvaWQiOiIzNGJmMWM1Ny04MmU5LTQ5MTctYmQyNC0zYzlkZTQwZjU4ZWMiLCJyaCI6IjAuQVlJQUVWM2FMS3p3czBhV2ZhOGJMaHZRR3JHbUg4R3I3VlJGcEQyS3R4c0JZeVdDQUFBLiIsInJvbGVzIjpbImFwaW0tZGVmYXVsdC1yb2xlIl0sInN1YiI6IjM0YmYxYzU3LTgyZTktNDkxNy1iZDI0LTNjOWRlNDBmNThlYyIsInRpZCI6IjJjZGE1ZDExLWYwYWMtNDZiMy05NjdkLWFmMWIyZTFiZDAxYSIsInV0aSI6IlRyWFVGVnhiU2ttLVNYb1pUM3RHQUEiLCJ2ZXIiOiIyLjAifQ.BGwxwCm-EZS4LciX6ZVndIRFM57i7Nubfx0hhtvJeTeeUpBdOgrPz2Ts4Qaas47gmnhMJL4D_QtGMuwrg1MPg6XQPqov91wcowZUAEFKj9q3ZfuWd2ZzccwE1s0_UktUoP2IRZ2mNfNxL2D3ba8hX69VPS5AqY4zsJY1nCIW6bLK763Y4ZAmc7fPpWow0VG91STFvhVnrdpb9JesCTf3xdlqALHxlzWeQNx76oU-L9jO_M_w4XdjUmMvD4XRRNq5i_YeH25ViwQFIkCAh1dADIpDX9Qd2Fi6ly0O_DfgXZmoDbCpf6M7jmFwwjYeYBzwwnLwWCus3X3PeOmRy4cJ9w"
+    codigo_autorizacion = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlQxU3QtZExUdnlXUmd4Ql82NzZ1OGtyWFMtSSJ9.eyJhdWQiOiJjMTFmYTZiMS1lZGFiLTQ1NTQtYTQzZC04YWI3MWIwMTYzMjUiLCJpc3MiOiJodHRwczovL2xvZ2luLm1pY3Jvc29mdG9ubGluZS5jb20vMmNkYTVkMTEtZjBhYy00NmIzLTk2N2QtYWYxYjJlMWJkMDFhL3YyLjAiLCJpYXQiOjE3MDE1ODU3MDEsIm5iZiI6MTcwMTU4NTcwMSwiZXhwIjoxNzAxNTg5NjAxLCJhaW8iOiJFMlZnWUZqNVFMSXg0cnlkaUpXZDRaNERIQ3dMbEdzY05PdjZWMFY4TCs1a2xkR0pVUVFBIiwiYXpwIjoiZjEzMmEyODAtMTU3MS00MTM3LTg2ZDctMjAxNjQxMDk4Y2U4IiwiYXpwYWNyIjoiMSIsIm9pZCI6IjM0YmYxYzU3LTgyZTktNDkxNy1iZDI0LTNjOWRlNDBmNThlYyIsInJoIjoiMC5BWUlBRVYzYUxLendzMGFXZmE4YkxodlFHckdtSDhHcjdWUkZwRDJLdHhzQll5V0NBQUEuIiwicm9sZXMiOlsiYXBpbS1kZWZhdWx0LXJvbGUiXSwic3ViIjoiMzRiZjFjNTctODJlOS00OTE3LWJkMjQtM2M5ZGU0MGY1OGVjIiwidGlkIjoiMmNkYTVkMTEtZjBhYy00NmIzLTk2N2QtYWYxYjJlMWJkMDFhIiwidXRpIjoiU1NlNXVHM25oRXlmczFfcWlrQUZBQSIsInZlciI6IjIuMCJ9.cgZOjN5J1tKw0rF28K3tnOWM4Pv6nfyG4o6abNqElbFkFbVGJVBLOrEc-H_ha10BKEevuzoZHCmr2K5KNKyiSvoLAhZo22vphFqbk93vCg2yYMiAJrywRkh0SKLXn1xn0EPcgSuIAcJ2FVcRQZ0ozx3_bnlZCMKsVRylcX8MhckweI-upLawE9Jl3nlrDay0AsAKIynmZvvsq-PbFm9xK2stvfZ79fDb6b9kPlTxETbWpmmT6J1D_2Wa5uikZ4HPMFsgf3xM3K6xaMn7vH3OfzkXiztsPU_otoTGyRpWedaTwIrqT6UD4CKQ0Yi5TVMISn8maAX1nC_783R-zY0JHg"
     # Convierte las coordenadas de origen y destino de cadenas JSON a objetos Python
     origen = json.loads(coordenadas_origen)
     destino = json.loads(coordenadas_destino)
@@ -50,13 +50,17 @@ def obtener_datos_ruta(coordenadas_origen, coordenadas_destino):
                             if i.isdigit():
                                 numeros += i
                     numeros = str(int(numeros) + int(numMins))
+                    
                 else:
                     for i in temporal:
                         if i.isdigit():
                             numeros += i
-                durations.append(numeros)
+                
+                durations.append(int(numeros))
+                #print(durations)
 
             minim = min(durations)
+            #print("EL minim es", minim)
             pos = durations.index(minim)
             return "L'opció més curta és la " + str(pos + 1) + " perquè té una durada de " + str(minim) + " minuts"
 
