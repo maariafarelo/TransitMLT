@@ -17,7 +17,21 @@
           bottom: 0;
           width: 100%;
          }
-
+         .container {
+          text-align: center; /* Centra los elementos dentro del contenedor */
+           }
+    
+          .button {
+            display: inline-block; 
+            padding: 10px 20px;
+            margin: 10px; 
+            background-color: rgb(74, 52, 219); /* Color de fondo del botón */
+            color: white; 
+            text-decoration: none; 
+            border: none;
+            border-radius: 5px;
+            font-size: 16px; 
+          }
         .logo {
          float: right;
          }
@@ -114,15 +128,22 @@
                          <div class="home__content">
                             <div class="home__data" >
                 
-                               <h1 class="home__title"> Our solution </h1>
-                               <div class="cuadrado">
-                                <h3> insertar algo xd </h3>
+                               <h1 class="home__title"> Where to? </h1>
+                                <div class="formContainer">
+                              
+                                  <form id="textForm" class="textForm">
+                                    <input type="text" id="input1" placeholder="Insert longitude">
+                                    <input type="text" id="input2" placeholder="Insert latitude">
+                                    <br>
+                                    <button type="button" class="submitButton" onclick="showText('input2')">Send</button>
+                                  </form>
+                                  
+                                <div id="result"></div>
+                                  
+                               
                                </div>
                               </div>
                                 </div>
+                                </div>
                           </section>
      </body>
-     
-
-
-
