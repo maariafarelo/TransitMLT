@@ -17,7 +17,21 @@
           bottom: 0;
           width: 100%;
          }
-
+         .container {
+          text-align: center; /* Centra los elementos dentro del contenedor */
+           }
+    
+          .button {
+            display: inline-block; 
+            padding: 10px 20px;
+            margin: 10px; 
+            background-color: rgb(74, 52, 219); /* Color de fondo del botón */
+            color: white; 
+            text-decoration: none; 
+            border: none;
+            border-radius: 5px;
+            font-size: 16px; 
+          }
         .logo {
          float: right;
          }
@@ -109,20 +123,34 @@
                                 </div> 
                     </section>
                     
-                    <section class="home section">
-                      <div class="home__container container_grid">
-                         <div class="home__content">
-                            <div class="home__data" >
-                
-                               <h1 class="home__title"> Our solution </h1>
-                               <div class="cuadrado">
-                                <h3> insertar algo xd </h3>
-                               </div>
-                              </div>
-                                </div>
-                          </section>
+     <section class="home section">
+      <div class="home__container container_grid">
+         <div class="home__content">
+            <div class="home__data" >
+              <h1 class="home__title"> Where to? </h1>
+                  <div class="container margintop" > 
+
+                      <div class="column margintop">
+                        <h2> Departing point </h2>
+                        <form id="textFormorigen" class="textForm ">
+                          <input type="text" id="input1" placeholder="Insert longitude">
+                          <input type="text" id="input2" placeholder="Insert latitude">
+                          <br>
+                        </form>
+                        
+                      </div>
+                      
+                      <div class="column margintop">
+                        <h2> Arrival point </h2>
+                        <form id="textFormorigen" class="textForm ">
+                          <input type="text" id="input1" placeholder="Insert longitude">
+                          <input type="text" id="input2" placeholder="Insert latitude">
+                          <br>
+                        </form>
+                      </div> 
+                      <div class="centrado ">
+                      <button type="button1" class="submitButton" onclick="showText('input2')">Send information</button>
+                      <script src="script.js"></script>
+                    </div>
+          </section>
      </body>
-     
-
-
-
