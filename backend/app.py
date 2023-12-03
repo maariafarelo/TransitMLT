@@ -96,5 +96,3 @@ def obtener_datos_ruta():
         return jsonify({'message': 'No route found'}), 404
 
 
-
-
