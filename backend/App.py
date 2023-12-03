@@ -1,62 +1,60 @@
-from flask import Flask, request, jsonify
 import requests
-#app = Flask(__name__)
+import json
 
-#api_url = "https://journey-service-int.api.sbb.ch/v3/trips/by-origin-destination"
+def obtener_datos_ruta(coordenadas_origen, coordenadas_destino):
+    # Define la URL de la API y tu código de autorización
+    url_api = "https://journey-service-int.api.sbb.ch/v3/trips/by-origin-destination"
+    codigo_autorizacion = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlQxU3QtZExUdnlXUmd4Ql82NzZ1OGtyWFMtSSJ9.eyJhdWQiOiJjMTFmYTZiMS1lZGFiLTQ1NTQtYTQzZC04YWI3MWIwMTYzMjUiLCJpc3MiOiJodHRwczovL2xvZ2luLm1pY3Jvc29mdG9ubGluZS5jb20vMmNkYTVkMTEtZjBhYy00NmIzLTk2N2QtYWYxYjJlMWJkMDFhL3YyLjAiLCJpYXQiOjE3MDE1NjM0MTEsIm5iZiI6MTcwMTU2MzQxMSwiZXhwIjoxNzAxNTY3MzExLCJhaW8iOiJBU1FBMi84VkFBQUE1VUJBeDNwR1dtNkVvVnZmelJPam5ldTRoSkdNaEJYNDN1TnVLUlh3NGFZPSIsImF6cCI6ImYxMzJhMjgwLTE1NzEtNDEzNy04NmQ3LTIwMTY0MTA5OGNlOCIsImF6cGFjciI6IjEiLCJvaWQiOiIzNGJmMWM1Ny04MmU5LTQ5MTctYmQyNC0zYzlkZTQwZjU4ZWMiLCJyaCI6IjAuQVlJQUVWM2FMS3p3czBhV2ZhOGJMaHZRR3JHbUg4R3I3VlJGcEQyS3R4c0JZeVdDQUFBLiIsInJvbGVzIjpbImFwaW0tZGVmYXVsdC1yb2xlIl0sInN1YiI6IjM0YmYxYzU3LTgyZTktNDkxNy1iZDI0LTNjOWRlNDBmNThlYyIsInRpZCI6IjJjZGE1ZDExLWYwYWMtNDZiMy05NjdkLWFmMWIyZTFiZDAxYSIsInV0aSI6IlRyWFVGVnhiU2ttLVNYb1pUM3RHQUEiLCJ2ZXIiOiIyLjAifQ.BGwxwCm-EZS4LciX6ZVndIRFM57i7Nubfx0hhtvJeTeeUpBdOgrPz2Ts4Qaas47gmnhMJL4D_QtGMuwrg1MPg6XQPqov91wcowZUAEFKj9q3ZfuWd2ZzccwE1s0_UktUoP2IRZ2mNfNxL2D3ba8hX69VPS5AqY4zsJY1nCIW6bLK763Y4ZAmc7fPpWow0VG91STFvhVnrdpb9JesCTf3xdlqALHxlzWeQNx76oU-L9jO_M_w4XdjUmMvD4XRRNq5i_YeH25ViwQFIkCAh1dADIpDX9Qd2Fi6ly0O_DfgXZmoDbCpf6M7jmFwwjYeYBzwwnLwWCus3X3PeOmRy4cJ9w"
+    # Convierte las coordenadas de origen y destino de cadenas JSON a objetos Python
+    origen = json.loads(coordenadas_origen)
+    destino = json.loads(coordenadas_destino)
 
-#@app.route("/ping")
- #def ping():
-    #return 'Pong!'
-#data = response.json
+    # Define los parámetros de la solicitud
+    body = json.dumps({
+        "origin": "[7.453596,46.935511]",
+        "destination": "[7.450046,46.965716]",
+        "date": "2023-12-18",
+        "time": "13:07"
+    })
 
-
-#def hello_world(): #to tell Flask what URL should trigger our function.
-  #  return "<p>Hello, World!</p>"
-
-#if __name__ == '__main__':
-#    app.run(debug=True)
-
-
-def obtener_rutas(origen, destino, api_key):
-    # URL de la API de OpenRouteService para obtener rutas
-    url = "https://journey-service-int.api.sbb.ch/v3/trips/by-origin-destination"
-
-    # Parámetros de la solicitud
-    params = {
-        "api_key": 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlQxU3QtZExUdnlXUmd4Ql82NzZ1OGtyWFMtSSJ9.eyJhdWQiOiJjMTFmYTZiMS1lZGFiLTQ1NTQtYTQzZC04YWI3MWIwMTYzMjUiLCJpc3MiOiJodHRwczovL2xvZ2luLm1pY3Jvc29mdG9ubGluZS5jb20vMmNkYTVkMTEtZjBhYy00NmIzLTk2N2QtYWYxYjJlMWJkMDFhL3YyLjAiLCJpYXQiOjE3MDE1NTQ1NTUsIm5iZiI6MTcwMTU1NDU1NSwiZXhwIjoxNzAxNTU4NDU1LCJhaW8iOiJFMlZnWUNpNFVlVXZzQ041cVUvVURwNE5iYXlzMDlST0dQeGtpTlJ3M002Y3hlb3V1QThBIiwiYXpwIjoiZjEzMmEyODAtMTU3MS00MTM3LTg2ZDctMjAxNjQxMDk4Y2U4IiwiYXpwYWNyIjoiMSIsIm9pZCI6IjM0YmYxYzU3LTgyZTktNDkxNy1iZDI0LTNjOWRlNDBmNThlYyIsInJoIjoiMC5BWUlBRVYzYUxLendzMGFXZmE4YkxodlFHckdtSDhHcjdWUkZwRDJLdHhzQll5V0NBQUEuIiwicm9sZXMiOlsiYXBpbS1kZWZhdWx0LXJvbGUiXSwic3ViIjoiMzRiZjFjNTctODJlOS00OTE3LWJkMjQtM2M5ZGU0MGY1OGVjIiwidGlkIjoiMmNkYTVkMTEtZjBhYy00NmIzLTk2N2QtYWYxYjJlMWJkMDFhIiwidXRpIjoiRmp0emdyOTlkMENEdlo5RlItTUhBQSIsInZlciI6IjIuMCJ9.r_cjyi9XYtvoq8g1Katue-2UpRt5FWiHr0CRI5WkgX7ZT82wVwsmUiDtccgvV8Af9h4CIxY5j6sueF7jO7IC5b-z8cs5-CRFEIgNpCL4VfdD0WyVdf9iC3Ehxk50mXsPrnwaWV8iUNNZDPKOvNC6sXOwMt_nd0QAic9EUMJw318yx07h0I_Day9edlfdFrX4HQKyMYWzPs6B-RiQe-VNRestWjpYUg5YhSU_dECP-LdYhb7X6d8B2TvkSdnaA3AXLlOIEPhiSWd5weIRPDcgrinu3A6eVN5M7dFDHI2BDDwrbslmByqzfAUX3dA1uwUUu9JIIcCD1Cyz1Hy04JOdyw',
-        "coordinates": [[origen[1], origen[0]], [destino[1], destino[0]]],
-        "format": "geojson",
+    # Define los encabezados con el código de autorización
+    headers = {
+        'Authorization': f'Bearer {codigo_autorizacion}',
+        'Content-Type': 'application/json'  # Ajusta según los requisitos de la API
     }
 
-    # Realizar la solicitud
-    response = requests.post(url, json=params)
+    # Realiza la solicitud a la API
+    try:
+        respuesta = requests.post(url_api, data=body, headers=headers)
 
-    # Verificar si la solicitud fue exitosa
-    if response.status_code == 200:
-        # Convertir la respuesta a formato JSON
-        data = response.json()
-        return data
-    else:
-        # Imprimir un mensaje de error si la solicitud no fue exitosa
-        print(f"Error en la solicitud. Código de estado: {response.status_code}")
-        return None
+        # Verifica el estado de la respuesta
+        if respuesta.status_code == 200:
+            # La solicitud fue exitosa, devuelve los datos
+            durations = []
+            for i in range(len(respuesta.json().get("trips"))):
+                temporal = respuesta.json().get("trips")[i].get("duration")
+                numeros = ''
+                for i in temporal:
+                    if i.isdigit():
+                        numeros += i
+                durations.append(numeros)
+
+            minim = min(durations)
+            pos = durations.index(minim)
+            return "L'opció més curta és la " + str(pos + 1) + " perquè té una durada de " + str(minim) + " minuts"
+
+            #return respuesta.json().get("trips")[0].get("duration")
+        else:
+            # La solicitud falló, imprime el código de estado y el mensaje de error
+            print(f"Error en la solicitud: {respuesta.status_code} - {respuesta.text}")
+    except Exception as e:
+        print(f"Error en la solicitud: {e}")
+
 
 # Ejemplo de uso
-origen = [-74.006, 40.7128]  # Latitud y longitud de Nueva York (origen)
-destino = [-118.2437, 34.0522]  # Latitud y longitud de Los Ángeles (destino)
-api_key = "tu_clave_de_api"  # Reemplaza con tu clave de API de OpenRouteService
+coordenadas_origen = "[7.453596,46.935511]"
+coordenadas_destino = "[7.450046,46.965716]"
+datos_ruta = obtener_datos_ruta(coordenadas_origen, coordenadas_destino)
 
-rutas = obtener_rutas(origen, destino, api_key)
-
-if rutas:
-    # Imprimir información de las rutas
-    '''
-    for i, ruta in enumerate(rutas['features']):
-        print(f"Ruta {i+1}:")
-        print(ruta['properties']['segments'][0]['distance'], "metros")
-        print(ruta['properties']['segments'][0]['duration'], "segundos")
-        print("Coordenadas:")
-        print(ruta['geometry']['coordinates'])
-        print("\n")
-
-    '''
+# Ahora puedes trabajar con los datos de la ruta obtenidos de la API
+print(datos_ruta)
