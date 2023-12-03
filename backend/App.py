@@ -11,8 +11,10 @@ def obtener_datos_ruta(coordenadas_origen, coordenadas_destino):
 
     # Define los parámetros de la solicitud
     body = json.dumps({
-        "origin": "[7.453596,46.935511]",
-        "destination": "[7.450046,46.965716]",
+        #"origin": "[7.453596,46.935511]",
+        #"destination": "[7.450046,46.965716]",
+        "origin": "[7.484149,46.948001]",
+        "destination": "[8.537218,47.381957]",
         "date": "2023-12-18",
         "time": "13:07"
     })
@@ -33,10 +35,25 @@ def obtener_datos_ruta(coordenadas_origen, coordenadas_destino):
             durations = []
             for i in range(len(respuesta.json().get("trips"))):
                 temporal = respuesta.json().get("trips")[i].get("duration")
+                hayH = False
+                numMins = ''
                 numeros = ''
-                for i in temporal:
-                    if i.isdigit():
-                        numeros += i
+                if "H" in temporal:
+                    for i in temporal:
+                        if i == "H":
+                            hayH = True
+                            numeros = str(int(numeros) * 60)
+                        elif hayH == True:
+                            if i.isdigit():
+                                numMins += i
+                        else:
+                            if i.isdigit():
+                                numeros += i
+                    numeros = str(int(numeros) + int(numMins))
+                else:
+                    for i in temporal:
+                        if i.isdigit():
+                            numeros += i
                 durations.append(numeros)
 
             minim = min(durations)
