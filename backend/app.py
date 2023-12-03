@@ -82,11 +82,13 @@ def obtener_datos_ruta():
             minim = min(durations)
             # print("EL minim es", minim)
             pos = durations.index(minim)
+
+            return jsonify({'option'; pos, 'duration': minim})
             # print(durations)
             # return "L'opció més curta és la " + str(pos) + " perquè té una durada de " + str(minim) + " minuts"
 
             #return respuesta.json().get("trips")[0].get("duration")
-            return jsonify(respuesta.json().get("trips")[pos], 200)
+            #return jsonify(respuesta.json().get("trips")[pos], 200)
             #return jsonify({'message': 'croqueta'}), 200
         else:
             # La solicitud falló, imprime el código de estado y el mensaje de error
