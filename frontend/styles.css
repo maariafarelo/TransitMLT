@@ -381,3 +381,16 @@ svg {
     justify-content: center; 
     align-items: center;
 }
+
+.margintop {
+  margin-top: 10%;
+}
+
+.margintop2 {
+  margin-top: 5%;
+}
+
+.centrado {
+  width: fit-content; /* Ajusta el ancho del div al contenido */
+  margin: 0 auto; /* Centra horizontalmente */
+}
