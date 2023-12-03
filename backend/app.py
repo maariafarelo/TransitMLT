@@ -95,3 +95,4 @@ def obtener_datos_ruta():
     except Exception as e:
         return jsonify({'message': 'No route found'}), 404
 
+
