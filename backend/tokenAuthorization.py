@@ -4,6 +4,7 @@ CLIENT_ID = "f132a280-1571-4137-86d7-201641098ce8"
 SCOPE = "c11fa6b1-edab-4554-a43d-8ab71b016325/.default"
 
 import requests
+
 def get_token():
     params = {
         'grant_type': 'client_credentials',
