@@ -1,19 +1,17 @@
 
 function makeRequest() {
     const param1Value = document.getElementById('input11').value;
-    const param2Value = document.getElementById('input12').value;
 
     const param3Value = document.getElementById('input21').value;
-    const param4Value = document.getElementById('input22').value;
   
-    const apiUrl = 'localhost:5000/';
+    const apiUrl = 'http://localhost:5000/';
     const params = { 
-      origen: [param1Value, param2Value],
-      destino: [param3Value, param4Value]
+      origen: "[" + param1Value + "]",
+      destino: "[" + param3Value + "]"
     };
   
     const queryString = new URLSearchParams(params).toString();
-    const urlWithParams = `${apiUrl}?${queryString}`;
+    const urlWithParams = `${apiUrl}?origen=[${param1Value}]&destino=[${param3Value}]`;
   
     fetch(urlWithParams)
       .then(response => {
