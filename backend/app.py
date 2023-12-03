@@ -83,7 +83,7 @@ def obtener_datos_ruta():
             # print("EL minim es", minim)
             pos = durations.index(minim)
 
-            return jsonify({'option'; pos, 'duration': minim})
+            return jsonify({'option': pos, 'duration': minim})
             # print(durations)
             # return "L'opció més curta és la " + str(pos) + " perquè té una durada de " + str(minim) + " minuts"
 
