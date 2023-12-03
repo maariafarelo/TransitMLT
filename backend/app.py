@@ -7,24 +7,24 @@ from flask_cors import CORS
 ahora = datetime.now()
 # Formatea la hora en formato de 24 horas (HH:MM)
 hora_actual = ahora.strftime("%H:%M")
-#print(hora_actual)
+# print(hora_actual)
 today = datetime.now()
 fecha_hora_actual = ahora.strftime("%Y-%m-%d")
-
 
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/', methods = ['GET'])
+
+@app.route('/', methods=['GET'])
 def obtener_datos_ruta():
-    coordenadas_origen = request.args.get('origin')
-    coordenadas_destino = request.args.get('destination')
+    origen = request.args.get('origen')
+    destino = request.args.get('destino')
     # Define la URL de la API y tu código de autorización
     url_api = "https://journey-service-int.api.sbb.ch/v3/trips/by-origin-destination"
-    codigo_autorizacion = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlQxU3QtZExUdnlXUmd4Ql82NzZ1OGtyWFMtSSJ9.eyJhdWQiOiJjMTFmYTZiMS1lZGFiLTQ1NTQtYTQzZC04YWI3MWIwMTYzMjUiLCJpc3MiOiJodHRwczovL2xvZ2luLm1pY3Jvc29mdG9ubGluZS5jb20vMmNkYTVkMTEtZjBhYy00NmIzLTk2N2QtYWYxYjJlMWJkMDFhL3YyLjAiLCJpYXQiOjE3MDE1ODk3NTMsIm5iZiI6MTcwMTU4OTc1MywiZXhwIjoxNzAxNTkzNjUzLCJhaW8iOiJBU1FBMi84VkFBQUFMOC9RWWhNMmNoOTNOcHNjbnE5N1JIcEZacW5hYWRleXdPbE4xZEN0MHNNPSIsImF6cCI6ImYxMzJhMjgwLTE1NzEtNDEzNy04NmQ3LTIwMTY0MTA5OGNlOCIsImF6cGFjciI6IjEiLCJvaWQiOiIzNGJmMWM1Ny04MmU5LTQ5MTctYmQyNC0zYzlkZTQwZjU4ZWMiLCJyaCI6IjAuQVlJQUVWM2FMS3p3czBhV2ZhOGJMaHZRR3JHbUg4R3I3VlJGcEQyS3R4c0JZeVdDQUFBLiIsInJvbGVzIjpbImFwaW0tZGVmYXVsdC1yb2xlIl0sInN1YiI6IjM0YmYxYzU3LTgyZTktNDkxNy1iZDI0LTNjOWRlNDBmNThlYyIsInRpZCI6IjJjZGE1ZDExLWYwYWMtNDZiMy05NjdkLWFmMWIyZTFiZDAxYSIsInV0aSI6IlczV2I4dE5uU1VTbjVDdldTRFlGQUEiLCJ2ZXIiOiIyLjAifQ.OuX1sEhITcpGbQdgZmfYxzvzA-8z_S1OKcCpyyOSm_6sGeizlFb0OwwARmXQXHrTlOQXsFKnTzokMliQNvkAkl-AGAgzq-MueGuNlBIG9770Trmk8yfOna9sSF5gJw8q5EkPccEekc9-fp44Xoy-lj2ddcF7TKPxTk4PVfO90NC54NPyQieEQt52I-iIypeVjlWokYGlYnVkeHRZ0fLBkqFFQ0Lc5Oar3HfC91BSi6ohuLrPv6MW06xvcdD98Wim0igzOBFMUyKxhsr_5pNuqzw84JGWYQREFvBq8I8rR3k3gtltq45d_Fl_ddA5_YeicCpp51rnAfvHnIKolQaPhA"
+    codigo_autorizacion = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlQxU3QtZExUdnlXUmd4Ql82NzZ1OGtyWFMtSSJ9.eyJhdWQiOiJjMTFmYTZiMS1lZGFiLTQ1NTQtYTQzZC04YWI3MWIwMTYzMjUiLCJpc3MiOiJodHRwczovL2xvZ2luLm1pY3Jvc29mdG9ubGluZS5jb20vMmNkYTVkMTEtZjBhYy00NmIzLTk2N2QtYWYxYjJlMWJkMDFhL3YyLjAiLCJpYXQiOjE3MDE1OTY1NTUsIm5iZiI6MTcwMTU5NjU1NSwiZXhwIjoxNzAxNjAwNDU1LCJhaW8iOiJFMlZnWUZDWlZmK3JPZE13WlYvK2wzVTZyVGZ0WHQ1YjhlT0dmbXd6MzVOVHR0N3U0bjRBIiwiYXpwIjoiZjEzMmEyODAtMTU3MS00MTM3LTg2ZDctMjAxNjQxMDk4Y2U4IiwiYXpwYWNyIjoiMSIsIm9pZCI6IjM0YmYxYzU3LTgyZTktNDkxNy1iZDI0LTNjOWRlNDBmNThlYyIsInJoIjoiMC5BWUlBRVYzYUxLendzMGFXZmE4YkxodlFHckdtSDhHcjdWUkZwRDJLdHhzQll5V0NBQUEuIiwicm9sZXMiOlsiYXBpbS1kZWZhdWx0LXJvbGUiXSwic3ViIjoiMzRiZjFjNTctODJlOS00OTE3LWJkMjQtM2M5ZGU0MGY1OGVjIiwidGlkIjoiMmNkYTVkMTEtZjBhYy00NmIzLTk2N2QtYWYxYjJlMWJkMDFhIiwidXRpIjoidmdEZXdZQXBOMC1IdmNQbGVQUUdBQSIsInZlciI6IjIuMCJ9.dRhf5A6nqGTmmz7LgZwZ9TKM1E2QyyvNgde6cJlsfLBiBUBxvwPX7jzNFTlpbV7pUc23f_j4vfcI0DoyYo_EkB7_SmTR7gV8ihbYGKYOi4vu1o7mWwDoeYjRJ88csQzoEw_6e26DTPeUDMop50TvR9Z-2jtKI6DPkRjXivikZ0xjKON4RLwTfx5-sB0Y6hDOlQhb7cR_bgTvEdharOg-h0m9nRnDQW6O8BqltK-Xe3G9L6g61dxUzReoCh_tOIF4eZenHHGeAWKNt-94q5vejfmXMxPI_g16uaw5vMnv3CKvyj5p87tGtnZ5-vDxvW3QayhbGU4e1dFkwdbeR2jyOg"
     # Convierte las coordenadas de origen y destino de cadenas JSON a objetos Python
-    origen = json.loads(coordenadas_origen)
-    destino = json.loads(coordenadas_destino)
+    # origen = json.loads(origen)
+    # destino = json.loads(destino)
 
     # Define los parámetros de la solicitud
     body = json.dumps({
@@ -43,6 +43,7 @@ def obtener_datos_ruta():
     # Realiza la solicitud a la API
     try:
         respuesta = requests.post(url_api, data=body, headers=headers)
+
 
         # Verifica el estado de la respuesta
         if respuesta.status_code == 200:
@@ -64,9 +65,9 @@ def obtener_datos_ruta():
                         else:
                             if i.isdigit():
                                 numeros += i
-                    if numeros =='':
+                    if numeros == '':
                         numeros = '0'
-                    elif numMins =='':
+                    elif numMins == '':
                         numMins = '0'
                     numeros = str(int(numeros) + int(numMins))
 
@@ -81,20 +82,16 @@ def obtener_datos_ruta():
             minim = min(durations)
             # print("EL minim es", minim)
             pos = durations.index(minim)
-            #print(durations)
+            # print(durations)
             # return "L'opció més curta és la " + str(pos) + " perquè té una durada de " + str(minim) + " minuts"
 
-            # return respuesta.json().get("trips")[0].get("duration")
-            #return jsonify(respuesta.json().get("trips")[pos], 200)
-            return jsonify({'message': 'croqueta'}), 200
+            #return respuesta.json().get("trips")[0].get("duration")
+            return jsonify(respuesta.json().get("trips")[pos], 200)
+            #return jsonify({'message': 'croqueta'}), 200
         else:
             # La solicitud falló, imprime el código de estado y el mensaje de error
-            return jsonify({'message': 'No route found'}), 404
+            # return jsonify({'message': 'croque'}), 404
+            return jsonify({'message': f'Error en la solicitud: {respuesta.status_code} - {respuesta.text}'}), respuesta.status_code
     except Exception as e:
         return jsonify({'message': 'No route found'}), 404
-
-
-#coordenadas_origen = "[7.453596,46.935511]"
-#coordenadas_destino = "[7.450046,46.965716]"
-#datos_ruta = obtener_datos_ruta()
 
